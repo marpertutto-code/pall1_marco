@@ -41,7 +41,7 @@ select cron.schedule(
   '*/30 * * * *',
   $$
   select net.http_post(
-    url := 'https://pall1-marco.vercel.app/api/cron/match-reminders',
+    url := 'https://pall1marco.vercel.app/api/cron/match-reminders',
     headers := '{"Content-Type": "application/json"}'::jsonb,
     body := '{}'::jsonb,
     timeout_milliseconds := 10000
