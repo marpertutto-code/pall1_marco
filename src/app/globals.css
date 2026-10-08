@@ -1,0 +1,291 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------
+   Pall1 design tokens
+   Sistema: Operate (utility) · accento unico verde campo (148°)
+   Neutri tintati verso l'accento. Mai #000, mai #fff.
+   Contrasti verificati con `npm run check:contrast`.
+   --------------------------------------------------------------- */
+:root {
+  color-scheme: light;
+
+  --paper: oklch(96.5% 0.012 148);
+  --surface: oklch(98.6% 0.008 148);
+  --surface-2: oklch(92.8% 0.02 148);
+  --rule: oklch(86.5% 0.026 148);
+  --line-strong: oklch(75% 0.032 148);
+
+  --ink: oklch(20% 0.028 152);
+  --muted: oklch(42% 0.024 150);
+
+  --accent: oklch(50% 0.145 147);
+  --accent-text: oklch(40% 0.117 148);
+  --accent-solid: oklch(41% 0.118 148);
+  --accent-solid-strong: oklch(35% 0.1 148);
+  --accent-on: oklch(98.5% 0.012 148);
+
+  --win: oklch(41% 0.11 162);
+  --loss: oklch(48% 0.19 25);
+  --draw: oklch(47% 0.09 75);
+
+  --focus: oklch(46% 0.134 147);
+
+  /* Vetro: superfici che galleggiano sopra lo sfondo ambientale. */
+  --glass: oklch(99% 0.006 148 / 0.66);
+  --glass-strong: oklch(99.2% 0.005 148 / 0.85);
+  --glass-border: oklch(86% 0.02 148 / 0.8);
+  --glass-highlight: oklch(100% 0 0 / 0.72);
+  --glass-blur: 20px;
+
+  /*
+   * Sfondo ambientale: senza qualcosa da sfocare il vetro è solo grigio più
+   * chiaro. Sono aloni fissi dietro tutto (`body::before`), non decorazione a
+   * caso: più saturi nel tema scuro, dove il vetro si vede davvero.
+   */
+  --ambient-1: oklch(72% 0.15 150 / 0.3);
+  --ambient-2: oklch(74% 0.11 210 / 0.22);
+  --ambient-3: oklch(88% 0.1 105 / 0.2);
+  --ambient-lines: oklch(60% 0.06 148 / 0.05);
+
+  --shadow-card: 0 1px 1px oklch(22% 0.03 150 / 0.06), 0 10px 30px -20px oklch(22% 0.03 150 / 0.3);
+  --shadow-pop: 0 1px 1px oklch(22% 0.03 150 / 0.07), 0 18px 44px -22px oklch(22% 0.03 150 / 0.42);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --paper: oklch(16.5% 0.018 150);
+  --surface: oklch(20% 0.02 150);
+  --surface-2: oklch(24.5% 0.022 150);
+  --rule: oklch(29% 0.02 150);
+  --line-strong: oklch(39% 0.024 150);
+
+  --ink: oklch(94% 0.012 150);
+  --muted: oklch(72.5% 0.02 152);
+
+  --accent: oklch(68% 0.18 148);
+  --accent-text: oklch(76% 0.19 148);
+  --accent-solid: oklch(68% 0.185 148);
+  --accent-solid-strong: oklch(74% 0.195 148);
+  --accent-on: oklch(15% 0.04 150);
+
+  --win: oklch(73% 0.13 162);
+  --loss: oklch(70% 0.16 25);
+  --draw: oklch(78% 0.09 80);
+
+  --focus: oklch(72% 0.2 148);
+
+  --glass: oklch(24% 0.02 150 / 0.6);
+  --glass-strong: oklch(25% 0.022 150 / 0.82);
+  --glass-border: oklch(42% 0.024 150 / 0.75);
+  --glass-highlight: oklch(100% 0 0 / 0.1);
+  --glass-blur: 22px;
+
+  --ambient-1: oklch(56% 0.17 150 / 0.42);
+  --ambient-2: oklch(52% 0.13 212 / 0.34);
+  --ambient-3: oklch(46% 0.1 105 / 0.24);
+  --ambient-lines: oklch(70% 0.06 148 / 0.045);
+
+  --shadow-card: 0 1px 1px oklch(6% 0.02 150 / 0.5), 0 10px 30px -20px oklch(6% 0.02 150 / 0.75);
+  --shadow-pop: 0 1px 1px oklch(6% 0.02 150 / 0.55), 0 18px 44px -22px oklch(6% 0.02 150 / 0.85);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-rule: var(--rule);
+  --color-line-strong: var(--line-strong);
+
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-accent-solid: var(--accent-solid);
+  --color-accent-solid-strong: var(--accent-solid-strong);
+  --color-accent-on: var(--accent-on);
+
+  --color-win: var(--win);
+  --color-loss: var(--loss);
+  --color-draw: var(--draw);
+  --color-focus: var(--focus);
+
+  --font-sans:
+    var(--font-instrument, "Instrument Sans Variable"), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-display:
+    var(--font-archivo, "Archivo Variable"), var(--font-instrument, "Instrument Sans Variable"),
+    ui-sans-serif, system-ui, sans-serif;
+
+  --radius-control: 10px;
+  --radius-card: 14px;
+
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-rule);
+  }
+
+  html {
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    overflow-x: clip;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /*
+   * Sfondo ambientale dietro il contenuto: aloni fissi + trama di campo molto
+   * tenue. `z-index: -1` lo tiene sotto ogni pannello ma sopra il colore del
+   * body, e `pointer-events: none` garantisce che non rubi un click.
+   */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(
+        115deg,
+        var(--ambient-lines) 0 1px,
+        transparent 1px 88px
+      ),
+      radial-gradient(58% 44% at 12% -6%, var(--ambient-1), transparent 70%),
+      radial-gradient(50% 40% at 92% 8%, var(--ambient-3), transparent 72%),
+      radial-gradient(64% 52% at 78% 104%, var(--ambient-2), transparent 74%);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-style: normal; /* mai corsivo nei titoli */
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+
+  /* I numeri (punteggi, statistiche) non devono "ballare" */
+  .num {
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--color-accent) 26%, transparent);
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+}
+
+/*
+ * Vetro. Solo `background-color` + sfocatura + riga di luce in alto: il bordo
+ * resta ai componenti (`border-rule`), così ognuno tiene il proprio contorno.
+ * Da usare dove qualcosa *galleggia* — barre, overlay, ricerca — non su ogni
+ * card: sono layer di blur, e su Android basso si pagano.
+ */
+@layer components {
+  .glass,
+  .glass-strong {
+    background-color: var(--glass);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+    box-shadow: inset 0 1px 0 var(--glass-highlight);
+  }
+
+  .glass-strong {
+    background-color: var(--glass-strong);
+  }
+
+  /* Vetro davvero sollevato (modali, pillole): riga di luce + ombra esterna. */
+  .glass-pop {
+    box-shadow: inset 0 1px 0 var(--glass-highlight), var(--shadow-pop);
+  }
+
+  /*
+   * Ripieghi: niente blur (browser vecchi) o trasparenza ridotta a livello di
+   * sistema (iOS «Riduci trasparenza», `prefers-contrast`). La superficie torna
+   * piena: si perde l'effetto, non la leggibilità.
+   */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass,
+    .glass-strong {
+      background-color: var(--surface);
+    }
+  }
+
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+    .glass,
+    .glass-strong {
+      background-color: var(--surface);
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+  }
+}
+
+/*
+ * «Squish» del cursore accent: l'indicatore si schiaccia nel senso del
+ * movimento e torna a posto. Da usare su un elemento *dentro* al cursore che
+ * scivola (transition sul transform del genitore): due livelli, così slittamento
+ * e rimbalzo non si pestano i piedi.
+ */
+@keyframes squish-pop {
+  0% {
+    transform: scale(1, 1);
+  }
+  36% {
+    transform: scale(1.09, 0.87);
+  }
+  68% {
+    transform: scale(0.98, 1.02);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+@layer components {
+  .squish-pop {
+    animation: squish-pop 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    transform-origin: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
