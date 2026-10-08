@@ -52,3 +52,6 @@ tmp/
 
 # python (script una tantum del marchio)
 __pycache__/
+
+.vercel
+.env*
